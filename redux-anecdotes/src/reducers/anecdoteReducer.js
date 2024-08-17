@@ -31,6 +31,9 @@ const reducer = (state = initialState, action) => {
         votes: anecdoteToChange.votes + 1,
       };
       return state.map((anec) => (anec.id === id ? changedAnec : anec));
+    case "CREATE_ANEC":
+      const newAnecdote = asObject(action.payload.content);
+      return state.concat(newAnecdote);
     default:
       return state;
   }
@@ -40,6 +43,13 @@ export const addVote = (id) => {
   return {
     type: "ADD_VOTE",
     payload: { id },
+  };
+};
+
+export const createAnecdote = (content) => {
+  return {
+    type: "CREATE_ANEC",
+    payload: { content },
   };
 };
 
