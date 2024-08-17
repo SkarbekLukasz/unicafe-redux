@@ -39,14 +39,14 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export const addVote = (id) => {
+export const addVoteAction = (id) => {
   return {
     type: "ADD_VOTE",
     payload: { id },
   };
 };
 
-export const createAnecdote = (content) => {
+export const createAnecdoteAction = (content) => {
   return {
     type: "CREATE_ANEC",
     payload: { content },
