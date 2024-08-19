@@ -1,4 +1,4 @@
-import { addVoteAction } from "../reducers/anecdoteReducer"
+import { addVote } from "../reducers/anecdoteReducer"
 import { useSelector, useDispatch } from "react-redux"
 
 const AnecdoteList = () => {
@@ -14,7 +14,7 @@ const AnecdoteList = () => {
     
     const vote = (id) => {
         console.log('vote', id)
-        dispatch(addVoteAction(id))
+        dispatch(addVote(id))
       }
 
     return(
