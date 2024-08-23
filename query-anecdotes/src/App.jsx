@@ -3,10 +3,15 @@ import Notification from './components/Notification'
 import ErrorPage from './components/ErrorPage'
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import { getAnecdotes, updateVotes } from './services/anecdotesService'
+import NotificationContextProvider from './reducers/notificationContext'
+import { useContext } from 'react'
+import NotificationContext from './reducers/notificationContext'
 
 const App = () => {
 
   const queryClient = useQueryClient()
+
+  const [notification, notificationDispatch] = useContext(NotificationContext)
 
   const updateVoteMutation = useMutation({
     mutationFn: updateVotes,
@@ -30,12 +35,14 @@ const App = () => {
   const handleVote = async (anecdote) => {
     console.log('vote')
     updateVoteMutation.mutate(anecdote)
+    notificationDispatch({type: 'SHOW', payload: `Anecdote "${anecdote.content}" has been voted on.`})
+    setTimeout(() => notificationDispatch({type: 'HIDE', payload: ''}), 5000)
   }
 
   const anecdotes = result.data
 
   return (
-    <div>
+      <div>
       <h3>Anecdote app</h3>
     
       <Notification />
